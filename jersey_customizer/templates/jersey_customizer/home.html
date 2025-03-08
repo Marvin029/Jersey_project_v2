@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GearCraftWorks | Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    
+    <!-- Navigation -->
+    <nav class="bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="text-white text-xl font-bold">GearCraftWorks</div>
+                <div class="flex space-x-4">
+                    <a href="{% url 'home' %}" class="text-white px-3 py-2">Home</a>
+                    <a href="{% url 'pre_order' %}" class="text-gray-300 hover:text-white px-3 py-2">Pre-order</a>
+                    <a href="{% url 'jersey_customizer' %}" class="text-gray-300 hover:text-white px-3 py-2">2d Designer</a>
+                    <a href="{% url 'about' %}" class="text-gray-300 hover:text-white px-3 py-2">About Us</a>
+                    <a href="{% url 'logout' %}" class="text-gray-300 hover:text-white px-3 py-2">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="flex-grow">
+        <!-- Hero Section -->
+        <div class="py-12 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:text-center">
+                    <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">GearCraftWorks</h2>
+                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                        Custom Jersey Design
+                    </p>
+                    <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                        Create your own custom jersey with our 3D jersey designer. Perfect for teams, events, or personal use.
+                    </p>
+                    <div class="mt-8">
+                        <a href="{% url 'jersey_customizer' %}" class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700">
+                            Start Designing
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="py-12 bg-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:text-center mb-10">
+                    <h2 class="text-2xl font-extrabold tracking-tight text-gray-900">Features</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">3D Preview</h3>
+                        <p class="text-gray-600">See your design in real-time with our interactive 3D preview.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Custom Colors</h3>
+                        <p class="text-gray-600">Choose from unlimited color options for your jersey design.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Logo Upload</h3>
+                        <p class="text-gray-600">Add your own logo or graphics to personalize your jersey.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-4 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between">
+                <!-- Company Info -->
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold">GearCraftWorks</h3>
+                    <p class="mt-2 text-gray-400">Custom Jersey Design</p>
+                </div>
+    
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-lg font-semibold">Contact Info</h4>
+                    <p class="mt-2 flex items-center text-gray-400">
+                        📞 <span class="ml-2">0998 854 8632</span>
+                    </p>
+                    <p class="mt-2 flex items-center text-gray-400">
+                        ✉️ <span class="ml-2">wtw104dante@gmail.com</span>
+                    </p>
+                </div>
+    
+                <!-- Categories -->
+                <div>
+                    <h4 class="text-lg font-semibold">Categories</h4>
+                    <p class="mt-2 flex items-center text-gray-400">
+                        👕 <span class="ml-2">Clothing (Brand)</span>
+                    </p>
+                </div>
+            </div>
+    
+            <!-- Copyright -->
+            <div class="mt-4 text-center text-gray-400">
+                &copy; 2025 GearCraftWorks. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>
