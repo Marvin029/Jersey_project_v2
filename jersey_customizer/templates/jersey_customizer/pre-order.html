@@ -75,7 +75,7 @@
                                     <option value="" disabled selected>Choose a size</option>
                                     <option value="S">Small (S)</option>
                                     <option value="M">Medium (M)</option>
-                                    <option value="L">Large (L)</option>
+                                    <option value="L">Large (L)</option>    
                                     <option value="XL">Extra Large (XL)</option>
                                     <option value="XXL">Double Extra Large (XXL)</option>
                                 </select>
@@ -107,16 +107,38 @@
     </div>
   
      <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-4">
+    <footer class="bg-gray-900 text-white py-4 mt-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between">
+                <!-- Company Info -->
                 <div class="mb-4 md:mb-0">
                     <h3 class="text-xl font-bold">GearCraftWorks</h3>
                     <p class="mt-2 text-gray-400">Custom Jersey Design</p>
                 </div>
+    
+                <!-- Contact Info -->
                 <div>
-                    <p class="text-gray-400">&copy; 2025 GearCraftWorks. All rights reserved.</p>
+                    <h4 class="text-lg font-semibold">Contact Info</h4>
+                    <p class="mt-2 flex items-center text-gray-400">
+                        📞 <span class="ml-2">0998 854 8632</span>
+                    </p>
+                    <p class="mt-2 flex items-center text-gray-400">
+                        ✉️ <span class="ml-2">wtw104dante@gmail.com</span>
+                    </p>
                 </div>
+    
+                <!-- Categories -->
+                <div>
+                    <h4 class="text-lg font-semibold">Categories</h4>
+                    <p class="mt-2 flex items-center text-gray-400">
+                        👕 <span class="ml-2">Clothing (Brand)</span>
+                    </p>
+                </div>
+            </div>
+    
+            <!-- Copyright -->
+            <div class="mt-0 text-center text-gray-400">
+                &copy; 2025 GearCraftWorks. All rights reserved.
             </div>
         </div>
     </footer>
@@ -174,7 +196,7 @@
         }
     </script>
     <script>
-        function validatePhone() {
+        function validatePhone() {  
             let phoneInput = document.getElementById("phone");
             phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '');
         }

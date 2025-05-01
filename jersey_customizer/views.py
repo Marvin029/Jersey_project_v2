@@ -5,6 +5,8 @@ from django.contrib.auth import logout
 import json
 import os
 from django.conf import settings
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 
 def home(request):
     return render(request, 'jersey_customizer/home.html')
@@ -24,6 +26,18 @@ def about(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect("home")  # Change "home" to your desired page
+        else:
+            return render(request, "login.html", {"error": "Invalid credentials"})
+    return render(request, "login.html")
 
 def get_patterns():
     pattern_dir = os.path.join(settings.BASE_DIR, 'static', 'patterns')
