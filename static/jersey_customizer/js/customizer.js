@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const config = {
       jerseyType: "tshirt",
       currentView: "front",
-      primaryColor: "#ffffff",
+      primaryColor: "#ff0000",
       secondaryColor: "#000000",
       pattern: "none",
       frontNumber: "",
@@ -123,23 +123,10 @@ document.addEventListener("DOMContentLoaded", () => {
   
         scene.add(jersey)
   
-        // Find body and sleeve meshes
+        // Apply initial primary color to all meshes
         jersey.traverse((child) => {
           if (child.isMesh) {
-            if (child.name === "Body" || child.name.includes("Body")) {
-              bodyMaterial = new THREE.MeshStandardMaterial({ color: config.primaryColor })
-              child.material = bodyMaterial
-            } else if (child.name === "Sleeves" || child.name.includes("Sleeve")) {
-              sleeveMaterial = new THREE.MeshStandardMaterial({ color: config.secondaryColor })
-              child.material = sleeveMaterial
-  
-              // Handle sleeveless option
-              if (config.jerseyType === "sleeveless") {
-                child.visible = false
-              } else {
-                child.visible = true
-              }
-            }
+            child.material = new THREE.MeshStandardMaterial({ color: config.primaryColor })
           }
         })
   
@@ -423,15 +410,24 @@ document.addEventListener("DOMContentLoaded", () => {
   
     primaryColorInput.addEventListener("input", function () {
       config.primaryColor = this.value
-      if (bodyMaterial) {
-        bodyMaterial.color.set(config.primaryColor)
+      if (jersey) {
+        jersey.traverse((child) => {
+          if (child.isMesh) {
+            child.material = new THREE.MeshStandardMaterial({ color: config.primaryColor })
+          }
+        })
       }
     })
   
     secondaryColorInput.addEventListener("input", function () {
       config.secondaryColor = this.value
-      if (sleeveMaterial) {
-        sleeveMaterial.color.set(config.secondaryColor)
+      if (jersey) {
+        // For now, apply secondary to all as fallback; refine if sleeves identifiable
+        jersey.traverse((child) => {
+          if (child.isMesh) {
+            child.material = new THREE.MeshStandardMaterial({ color: config.secondaryColor })
+          }
+        })
       }
     })
   
