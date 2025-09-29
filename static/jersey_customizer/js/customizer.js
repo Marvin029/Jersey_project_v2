@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Three.js variables
     let scene, camera, renderer, controls
-    let jersey, bodyMaterial, sleeveMaterial
+    let jersey, bodyMeshes = [], sleeveMeshes = []
+    let bodyMaterial, sleeveMaterial
     let frontNumberMesh, backNameMesh, backNumberMesh, logoMesh
     let gridHelper
   
@@ -123,13 +124,28 @@ document.addEventListener("DOMContentLoaded", () => {
   
         scene.add(jersey)
   
-        // Apply initial primary color to all meshes
+        // Classify meshes into body and sleeves based on bounding box center x-position
+        // Log for verification; adjust threshold as needed (e.g., |center.x| > 0.2 for sleeves)
         jersey.traverse((child) => {
           if (child.isMesh) {
-            child.material = new THREE.MeshStandardMaterial({ color: config.primaryColor })
+            child.geometry.computeBoundingBox();
+            const center = new THREE.Vector3();
+            child.geometry.boundingBox.getCenter(center);
+            console.log(`Mesh "${child.name}": bounding box center x = ${center.x.toFixed(2)}`);
+
+            // Threshold: central (|x| <= 0.2) = body, sides = sleeves (adjust after logging)
+            if (Math.abs(center.x) <= 0.2) {
+              bodyMeshes.push(child);
+            } else {
+              sleeveMeshes.push(child);
+            }
           }
-        })
-  
+        });
+
+        // Apply initial colors
+        applyBodyColor();
+        applySleeveColor();
+
         // Create text and logo elements
         createTextElements()
   
@@ -387,13 +403,10 @@ document.addEventListener("DOMContentLoaded", () => {
       config.jerseyType = this.value
   
       // Update sleeve visibility based on jersey type
-      if (jersey) {
-        jersey.traverse((child) => {
-          if (child.isMesh && (child.name === "Sleeves" || child.name.includes("Sleeve"))) {
-            child.visible = config.jerseyType !== "sleeveless"
-          }
-        })
-      }
+      sleeveMeshes.forEach(mesh => {
+        mesh.visible = config.jerseyType !== "sleeveless";
+      });
+      applySleeveColor(); // Re-apply to ensure visibility affects color
     })
   
     frontViewBtn.addEventListener("click", () => {
@@ -410,25 +423,12 @@ document.addEventListener("DOMContentLoaded", () => {
   
     primaryColorInput.addEventListener("input", function () {
       config.primaryColor = this.value
-      if (jersey) {
-        jersey.traverse((child) => {
-          if (child.isMesh) {
-            child.material = new THREE.MeshStandardMaterial({ color: config.primaryColor })
-          }
-        })
-      }
+      applyBodyColor();
     })
   
     secondaryColorInput.addEventListener("input", function () {
       config.secondaryColor = this.value
-      if (jersey) {
-        // For now, apply secondary to all as fallback; refine if sleeves identifiable
-        jersey.traverse((child) => {
-          if (child.isMesh) {
-            child.material = new THREE.MeshStandardMaterial({ color: config.secondaryColor })
-          }
-        })
-      }
+      applySleeveColor();
     })
   
     patternSelect.addEventListener("change", function () {
@@ -575,6 +575,22 @@ document.addEventListener("DOMContentLoaded", () => {
       downloadMultiViewDesign()
     })
   
+    // Function to apply body color to body meshes
+    function applyBodyColor() {
+      bodyMeshes.forEach(mesh => {
+        mesh.material = new THREE.MeshStandardMaterial({ color: config.primaryColor });
+      });
+    }
+
+    // Function to apply sleeve color to sleeve meshes (only if visible)
+    function applySleeveColor() {
+      sleeveMeshes.forEach(mesh => {
+        if (config.jerseyType !== "sleeveless") {
+          mesh.material = new THREE.MeshStandardMaterial({ color: config.secondaryColor });
+        }
+      });
+    }
+
     // Initialize the scene
     initScene()
   })
