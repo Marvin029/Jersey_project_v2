@@ -10,6 +10,7 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/DragControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/geometries/DecalGeometry.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/customizer.css' %}">
 </head>
@@ -51,7 +52,7 @@
                   <div class="space-y-4">
                       <div>
                           <label class="block mb-2">Jersey Type</label>
-                          <select id="jersey-type" class="w-full p-2 border rounded">
+                          <select id="jersey-type" class="w-full p-2 border rounded" title="Select jersey type">
                               <option value="tshirt">T-Shirt Style</option>
                               <option value="sleeveless">Sleeveless Style</option>
                           </select>
@@ -65,15 +66,15 @@
                       </div>
                       <div>
                           <label class="block mb-2">Body Color</label>
-                          <input type="color" id="primary-color" value="#ffffff" class="w-full h-10">
+                          <input type="color" id="primary-color" value="#ffffff" class="w-full h-10" title="Select body color">
                       </div>
                       <div>
-                          <label class="block mb-2"> Color</label>
-                          <input type="color" id="secondary-color" value="#000000" class="w-full h-10">
+                          <label class="block mb-2">Sleeve Color</label>
+                          <input type="color" id="secondary-color" value="#ffffff" class="w-full h-10" title="Select sleeve color">
                       </div>
                       <div>
                           <label class="block mb-2">Pattern</label>
-                          <select id="pattern" class="w-full p-2 border rounded">
+                          <select id="pattern" class="w-full p-2 border rounded" title="Select pattern">
                               <option value="none">None</option>
                               {% for pattern in patterns %}
                                   <option value="{{ pattern }}">{{ pattern|title }}</option>
@@ -85,18 +86,18 @@
                       <div id="front-options">
                           <div>
                               <label class="block mb-2">Number</label>
-                              <input type="number" id="front-number" class="w-full p-2 border rounded" min="0" max="99">
+                              <input type="number" id="front-number" class="w-full p-2 border rounded" min="0" max="99" title="Enter front number">
                           </div>
                           <div class="mt-2">
                               <label class="block mb-2">Number Position</label>
                               <div class="grid grid-cols-2 gap-2">
                                   <div>
                                       <label class="text-xs">X Position</label>
-                                      <input type="range" id="front-number-x" min="0" max="1" step="0.01" value="0.7" class="w-full">
+                                      <input type="range" id="front-number-x" min="0" max="1" step="0.01" value="0.7" class="w-full" title="Adjust front number X position">
                                   </div>
                                   <div>
                                       <label class="text-xs">Y Position</label>
-                                      <input type="range" id="front-number-y" min="0" max="1" step="0.01" value="0.2" class="w-full">
+                                      <input type="range" id="front-number-y" min="0" max="1" step="0.01" value="0.2" class="w-full" title="Adjust front number Y position">
                                   </div>
                               </div>
                           </div>
@@ -106,35 +107,35 @@
                       <div id="back-options" style="display: none;">
                           <div>
                               <label class="block mb-2">Name</label>
-                              <input type="text" id="back-name" class="w-full p-2 border rounded" maxlength="15">
+                              <input type="text" id="back-name" class="w-full p-2 border rounded" maxlength="15" placeholder="Enter back name">
                           </div>
                           <div class="mt-2">
                               <label class="block mb-2">Name Position</label>
                               <div class="grid grid-cols-2 gap-2">
                                   <div>
                                       <label class="text-xs">X Position</label>
-                                      <input type="range" id="back-name-x" min="0" max="1" step="0.01" value="0.5" class="w-full">
+                                      <input type="range" id="back-name-x" min="0" max="1" step="0.01" value="0.5" class="w-full" title="Adjust back name X position">
                                   </div>
                                   <div>
                                       <label class="text-xs">Y Position</label>
-                                      <input type="range" id="back-name-y" min="0" max="1" step="0.01" value="0.2" class="w-full">
+                                      <input type="range" id="back-name-y" min="0" max="1" step="0.01" value="0.2" class="w-full" title="Adjust back name Y position">
                                   </div>
                               </div>
                           </div>
                           <div class="mt-2">
                               <label class="block mb-2">Number</label>
-                              <input type="number" id="back-number" class="w-full p-2 border rounded" min="0" max="99">
+                              <input type="number" id="back-number" class="w-full p-2 border rounded" min="0" max="99" title="Enter back number">
                           </div>
                           <div class="mt-2">
                               <label class="block mb-2">Number Position</label>
                               <div class="grid grid-cols-2 gap-2">
                                   <div>
                                       <label class="text-xs">X Position</label>
-                                      <input type="range" id="back-number-x" min="0" max="1" step="0.01" value="0.5" class="w-full">
+                                      <input type="range" id="back-number-x" min="0" max="1" step="0.01" value="0.5" class="w-full" title="Adjust back number X position">
                                   </div>
                                   <div>
                                       <label class="text-xs">Y Position</label>
-                                      <input type="range" id="back-number-y" min="0" max="1" step="0.01" value="0.5" class="w-full">
+                                      <input type="range" id="back-number-y" min="0" max="1" step="0.01" value="0.5" class="w-full" title="Adjust back number Y position">
                                   </div>
                               </div>
                           </div>
@@ -150,6 +151,13 @@
                       </div>
                       <div id="logo-options" style="display: none;">
                           <div class="mt-2">
+                              <label class="block mb-2">Logo Placement</label>
+                              <select id="logo-placement" class="w-full p-2 border rounded">
+                                  <option value="front">Front</option>
+                                  <option value="back">Back</option>
+                              </select>
+                          </div>
+                          <div class="mt-2">
                               <label class="block mb-2">Logo Size</label>
                               <input type="range" id="logo-size" min="0.1" max="1" step="0.1" value="0.5" class="w-full">
                           </div>
@@ -158,11 +166,11 @@
                               <div class="grid grid-cols-2 gap-2">
                                   <div>
                                       <label class="text-xs">X Position</label>
-                                      <input type="range" id="logo-x" min="0" max="1" step="0.01" value="0.5" class="w-full">
+                                      <input type="range" id="logo-x" min="0.25" max="0.75" step="0.01" value="0.5" class="w-full">
                                   </div>
                                   <div>
                                       <label class="text-xs">Y Position</label>
-                                      <input type="range" id="logo-y" min="0" max="1" step="0.01" value="0.3" class="w-full">
+                                      <input type="range" id="logo-y" min="0.2" max="0.8" step="0.01" value="0.5" class="w-full">
                                   </div>
                               </div>
                           </div>
@@ -189,8 +197,7 @@
     <!-- Alpine.js for UI interactions -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
-    <!-- Custom JavaScript -->  
-    <script src="{% static 'jersey_customizer/js/customizer.js' %}"></script>
+  
 
       <!-- Footer -->
       <footer class="bg-gray-900 text-white py-4">
@@ -228,7 +235,9 @@
       </footer>
   </div>
 
-  <!-- Custom JavaScript -->
+   <script>
+    window.modelPath = "{% static 'jersey_customizer/models/t_shirt.gltf' %}";
+  </script>
   <script src="{% static 'jersey_customizer/js/customizer.js' %}"></script>
 </body>
 </html>
